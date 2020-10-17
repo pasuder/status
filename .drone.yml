@@ -1,0 +1,22 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build
+  image: ubuntu-statuspage
+  pull: never
+  secrets:
+    - GITHUB_TOKEN
+  environment:
+    GITHUB_TOKEN:
+      from_secret: GITHUB_TOKEN
+  commands:
+    - statuspage update --name=status --token=$GITHUB_TOKEN
+
+---
+kind: signature
+hmac: a66afdecddc38181fa2fbc6bc920c29f104c86f330876ec9338de6e99adea04b
+
+...
